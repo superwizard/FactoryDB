@@ -23,6 +23,8 @@ import javax.swing.JButton;
 
 import main.Driver;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -70,9 +72,9 @@ public class GUIstart {
 	 */
 	private void initialize() {
 		frmDbApp = new JFrame();
-		frmDbApp.setTitle("DB APP");
 		frmDbApp.setResizable(false);
-		frmDbApp.setBounds(100, 100, 450, 300);
+		frmDbApp.setTitle("DB APP");
+		frmDbApp.setBounds(100, 100, 450, 176);
 		frmDbApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDbApp.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -80,6 +82,7 @@ public class GUIstart {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
+				
 				ColumnSpec.decode("default:grow"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -101,6 +104,18 @@ public class GUIstart {
 		frmDbApp.getContentPane().add(textField, "6, 4, fill, default");
 		textField.setColumns(10);
 		
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					address = textField.getText();
+					username = textField_1.getText();
+					password = passwordField.getPassword();
+					Driver.attemptLogin(address, username, password);
+				}
+			}
+		});
+		
 		JLabel lblUsername = new JLabel("Username:");
 		frmDbApp.getContentPane().add(lblUsername, "4, 6, right, default");
 		
@@ -108,10 +123,33 @@ public class GUIstart {
 		frmDbApp.getContentPane().add(textField_1, "6, 6, fill, default");
 		textField_1.setColumns(10);
 		
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					address = textField.getText();
+					username = textField_1.getText();
+					password = passwordField.getPassword();
+					Driver.attemptLogin(address, username, password);
+				}
+			}
+		});
+		
 		JLabel lblPassword = new JLabel("Password:");
 		frmDbApp.getContentPane().add(lblPassword, "4, 8, right, default");
 		
 		passwordField = new JPasswordField();
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					address = textField.getText();
+					username = textField_1.getText();
+					password = passwordField.getPassword();
+					Driver.attemptLogin(address, username, password);
+				}
+			}
+		});
 		frmDbApp.getContentPane().add(passwordField, "6, 8, fill, default");
 		
 		JButton btnLogin = new JButton("login");
@@ -123,6 +161,7 @@ public class GUIstart {
 				password = passwordField.getPassword();
 				Driver.attemptLogin(address, username, password);
 			}
+			
 		});
 		frmDbApp.getContentPane().add(btnLogin, "4, 10");
 	}
